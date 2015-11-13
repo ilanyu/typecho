@@ -7,7 +7,7 @@
             + "<script src=\"./usr/js/admin/html5shiv.js\"></script>"
             + "<script src=\"./usr/js/admin/respond.js\"></script>"
             + "<![endif]-->";
-%>
+%>v
 <!DOCTYPE HTML>
 <html class="no-js">
 <head>
