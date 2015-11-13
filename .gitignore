@@ -21,3 +21,4 @@ gen### Java template
 hs_err_pid*
 
 /src/main/resources/rebel.xml
+/target

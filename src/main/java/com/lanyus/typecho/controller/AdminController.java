@@ -11,8 +11,11 @@ public class AdminController {
     public String login(@RequestParam(value = "name", required = false) String name,
                         @RequestParam(value = "password", required = false) String password,
                         @RequestParam(value = "referer", required = false) String referer) {
-        System.out.println(referer);
-        return "admin/login";
+        if (name == null) {
+            return "admin/login";
+        } else {
+            return "admin/login";
+        }
     }
 
     @RequestMapping("/logout")
