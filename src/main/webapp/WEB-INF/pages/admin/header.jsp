@@ -1,18 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    String header = "<link rel=\"stylesheet\" href=\"./admin/css/normalize.css?v="
-            + application.getAttribute("suffixVersion") + "\">"
-            + "<link rel=\"stylesheet\" href=\"./admin/css/grid.css?v="
-            + application.getAttribute("suffixVersion") + "\"><link rel=\"stylesheet\" href=\"./admin/css/style.css?v="
-            + application.getAttribute("suffixVersion") + "\"><!--[if lt IE 9]>" +
-            "<script src=\"./admin/js/html5shiv.js?v=" + application.getAttribute("suffixVersion") + "\"></script>" +
-            "<script src=\"./admin/js/respond.js?v=" + application.getAttribute("suffixVersion") + "\"></script>" +
-            "<![endif]-->";
+    String header = "<link rel=\"stylesheet\" href=\"./usr/css/admin/normalize.css\">"
+            + "<link rel=\"stylesheet\" href=\"./usr/css/admin/grid.css\">"
+            + "<link rel=\"stylesheet\" href=\"./usr/css/admin/style.css\">"
+            + "<!--[if lt IE 9]>"
+            + "<script src=\"./usr/js/admin/html5shiv.js\"></script>"
+            + "<script src=\"./usr/js/admin/respond.js\"></script>"
+            + "<![endif]-->";
 %>
 <!DOCTYPE HTML>
 <html class="no-js">
 <head>
-    <meta charset="${applicationScope.charset}">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width, initial-scale=1">
