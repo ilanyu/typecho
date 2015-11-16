@@ -26,4 +26,8 @@ public interface TypechoRelationshipsMapper {
      * @mbggenerated
      */
     int insertSelective(TypechoRelationshipsKey record);
+
+    TypechoRelationshipsKey selectByCid(Integer cid);
+
+    TypechoRelationshipsKey selectByMid(Integer mid);
 }

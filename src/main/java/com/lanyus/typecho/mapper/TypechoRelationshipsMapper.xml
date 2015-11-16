@@ -9,6 +9,12 @@
     <id column="cid" property="cid" jdbcType="INTEGER" />
     <id column="mid" property="mid" jdbcType="INTEGER" />
   </resultMap>
+  <select id="selectByCid" resultMap="BaseResultMap">
+    SELECT * FROM typecho_relationships where cid = #{cid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMid" resultMap="BaseResultMap">
+    SELECT * FROM typecho_relationships where mid = #{mid,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="com.lanyus.typecho.domain.TypechoRelationshipsKey" >
     <!--
       WARNING - @mbggenerated

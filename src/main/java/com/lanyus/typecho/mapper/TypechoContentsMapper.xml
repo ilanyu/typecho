@@ -57,6 +57,11 @@
     from typecho_contents
     where cid = #{cid,jdbcType=INTEGER}
   </select>
+
+  <select id="selectAll" resultMap="ResultMapWithBLOBs">
+    SELECT * FROM typecho_contents
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     <!--
       WARNING - @mbggenerated
