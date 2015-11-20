@@ -30,12 +30,14 @@ public class IndexController {
                       HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PrintWriter out = resp.getWriter();
         if (null == name || null == password) {
-            out.print("{\"status\":\"failed\",\"message\":\"username and password is error!\"}");
+            out.print("{\"status\":\"error\",\"message\":\"username and password is error!\"}");
+            out.close();
+            return;
         }
         if (blogService.login(name, password)) {
             out.print("{\"status\":\"success\",\"message\":\"\"}");
         } else {
-            out.print("{\"status\":\"failed\",\"message\":\"username and password is error!\"}");
+            out.print("{\"status\":\"error\",\"message\":\"username and password is error!\"}");
         }
         out.close();
     }

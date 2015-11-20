@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -73,7 +74,7 @@
     function login() {
         var username = $('#username').val();
         var password = $('#password').val();
-        $.post("${pageContext.servletContext}/login/login",{"username":username,"password":password},function (data) {
+        $.post("./login/login",{"username":username,"password":password},function (data) {
             data = JSON.parse(data);
             if (data.status == "error") {
                 $('#error').modal();

@@ -2,7 +2,9 @@ package com.lanyus.typecho.service;
 
 import com.lanyus.typecho.dao.TypechoContentsMapper;
 import com.lanyus.typecho.dao.TypechoRelationshipsMapper;
+import com.lanyus.typecho.dao.TypechoUsersMapper;
 import com.lanyus.typecho.domain.TypechoContents;
+import com.lanyus.typecho.domain.TypechoUsers;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,9 +21,17 @@ public class BlogService {
     TypechoContentsMapper typechoContentsMapper;
     @Resource
     TypechoRelationshipsMapper typechoRelationshipsMapper;
+    @Resource
+    TypechoUsersMapper typechoUsersMapper;
 
     public boolean login(String username, String password) {
-
+        TypechoUsers typechoUsers = typechoUsersMapper.selectByName(username);
+        if (typechoUsers == null) {
+            return false;
+        }
+        if (typechoUsers.getPassword().equals(password)) {
+            return true;
+        }
         return false;
     }
 

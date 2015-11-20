@@ -35,6 +35,15 @@
     from typecho_users
     where uid = #{uid,jdbcType=INTEGER}
   </select>
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from typecho_users
+    where name = #{name,jdbcType=STRING}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT * FROM typecho_users;
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     <!--
       WARNING - @mbggenerated
