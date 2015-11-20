@@ -26,6 +26,8 @@ public class BlogService {
 
     public boolean login(String username, String password) {
         TypechoUsers typechoUsers = typechoUsersMapper.selectByName(username);
+        System.out.println(typechoUsers.getPassword());
+        System.out.println(password);
         if (typechoUsers == null) {
             return false;
         }
