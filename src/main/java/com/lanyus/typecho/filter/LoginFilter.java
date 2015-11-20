@@ -1,4 +1,4 @@
-package com.lanyus.typecho.filter_;
+package com.lanyus.typecho.filter;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 
