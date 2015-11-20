@@ -20,6 +20,11 @@ public class BlogService {
     @Resource
     TypechoRelationshipsMapper typechoRelationshipsMapper;
 
+    public boolean login(String username, String password) {
+
+        return false;
+    }
+
     public List<TypechoContents> getBlog() {
         List<TypechoContents> typechoContentsList = typechoContentsMapper.selectAll();
         List<TypechoContents> typechoContentses = new ArrayList<TypechoContents>();
