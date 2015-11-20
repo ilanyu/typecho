@@ -39,7 +39,7 @@
     select
     <include refid="Base_Column_List" />
     from typecho_users
-    where name = #{name,jdbcType=STRING}
+    where name = #{name,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     SELECT * FROM typecho_users;

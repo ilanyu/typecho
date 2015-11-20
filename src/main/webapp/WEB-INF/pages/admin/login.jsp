@@ -74,7 +74,7 @@
     function login() {
         var username = $('#username').val();
         var password = $('#password').val();
-        $.post("./login/login",{"username":username,"password":password},function (data) {
+        $.post("./login/login",{"name":username,"password":password},function (data) {
             data = JSON.parse(data);
             if (data.status == "error") {
                 $('#error').modal();

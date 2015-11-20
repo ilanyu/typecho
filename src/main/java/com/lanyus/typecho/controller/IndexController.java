@@ -27,7 +27,7 @@ public class IndexController {
     public void login(@RequestParam(value = "name", required = false) String name,
                       @RequestParam(value = "password", required = false) String password,
                       @RequestParam(value = "referer", required = false) String referer,
-                      HttpServletRequest req, HttpServletResponse resp) throws IOException {
+                      HttpServletRequest req, HttpServletResponse resp, HttpSession session) throws IOException {
         PrintWriter out = resp.getWriter();
         if (null == name || null == password) {
             out.print("{\"status\":\"error\",\"message\":\"username and password is error!\"}");
@@ -35,6 +35,7 @@ public class IndexController {
             return;
         }
         if (blogService.login(name, password)) {
+            session.setAttribute("username",name);
             out.print("{\"status\":\"success\",\"message\":\"\"}");
         } else {
             out.print("{\"status\":\"error\",\"message\":\"username and password is error!\"}");
