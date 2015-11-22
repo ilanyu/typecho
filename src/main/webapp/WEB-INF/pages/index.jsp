@@ -102,55 +102,26 @@
     <div class="am-u-md-4 blog-sidebar">
         <div class="am-panel-group">
             <section class="am-panel am-panel-default">
-                <div class="am-panel-hd">关于我</div>
+                <div class="am-panel-hd">捐赠</div>
                 <div class="am-panel-bd">
-                    <p>前所未有的中文云端字型服务，让您在 web 平台上自由使用高品质中文字体，跨平台、可搜寻，而且超美。云端字型是我们的事业，推广字型学知识是我们的志业。从字体出发，关心设计与我们的生活，justfont blog
-                        正是為此而生。</p>
-                    <a class="am-btn am-btn-success am-btn-sm" href="#">查看更多 →</a>
+                    <img src="http://blog.lanyus.com/alipay.png" align="center">
                 </div>
             </section>
             <section class="am-panel am-panel-default">
-                <div class="am-panel-hd">文章目录</div>
-                <ul class="am-list blog-list">
-                    <li><a href="#">Google fonts 的字體（sans-serif 篇）</a></li>
-                    <li><a href="#">[but]服貿最前線？－再訪桃園機場</a></li>
-                    <li><a href="#">到日星鑄字行學字型</a></li>
-                    <li><a href="#">glyph font vs. 漢字（上）</a></li>
-                    <li><a href="#">浙江民間書刻體上線</a></li>
-                    <li><a href="#">[極短篇] Android v.s iOS，誰的字體好讀？</a></li>
+                <div class="am-panel-hd">最新文章</div>
+                <ul class="am-list blog-list" id="newArticle">
                 </ul>
             </section>
 
             <section class="am-panel am-panel-default">
-                <div class="am-panel-hd">团队成员</div>
-                <div class="am-panel-bd">
-                    <ul class="am-avg-sm-4 blog-team">
-                        <li><img class="am-thumbnail"
-                                 src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
-                        </li>
-                        <li><img class="am-thumbnail"
-                                 src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
-                        </li>
-                        <li><img class="am-thumbnail"
-                                 src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
-                        </li>
-                        <li><img class="am-thumbnail"
-                                 src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
-                        </li>
-                        <li><img class="am-thumbnail"
-                                 src="http://img4.duitang.com/uploads/blog/201406/15/20140615230159_kjTmC.thumb.224_0.jpeg" alt=""/>
-                        </li>
-                        <li><img class="am-thumbnail"
-                                 src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
-                        </li>
-                        <li><img class="am-thumbnail"
-                                 src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
-                        </li>
-                        <li><img class="am-thumbnail"
-                                 src="http://img4.duitang.com/uploads/blog/201406/15/20140615230159_kjTmC.thumb.224_0.jpeg" alt=""/>
-                        </li>
-                    </ul>
-                </div>
+                <div class="am-panel-hd">其他</div>
+                <ul class="am-list blog-list">
+                    <li><a href="/admin">后台管理</a></li>
+                    <li><a href="/feed/">文章 RSS</a></li>
+                    <li><a href="/feed/comments/">评论 RSS</a></li>
+                    <li><a href="http://typecho.org/">Typecho</a></li>
+                    <li><a href="http://blog.lanyus.com/">ilanyu</a></li>
+                </ul>
             </section>
         </div>
     </div>
@@ -166,8 +137,16 @@
         $.getJSON("./getIndexBlog",{"start":start,"limit":limit}, function (data) {
             var count = data.length;
             for (var i = 0; i < count ; i++) {
-                $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title"><a href="' + data[i]["cid"] + '">' + data[i]["title"] + '</a></h3><h4 class="am-article-meta blog-meta">by <a href="/author/' + data[i]["authorId"] + '">' + data[i]["author"] + '</a> posted on ' + data[i]["date"] + ' under <a href="' + data[i]["categorySlug"] + '">' + data[i]["category"] + '</a></h4><div class="am-g blog-content">' + data[i]["content"] + '</div></article>');
+                $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title"><a href="/article/' + data[i]["cid"] + '">' + data[i]["title"] + '</a></h3><h4 class="am-article-meta blog-meta">by <a href="/author/' + data[i]["authorId"] + '">' + data[i]["author"] + '</a> posted on ' + data[i]["date"] + ' under <a href="' + data[i]["categorySlug"] + '">' + data[i]["category"] + '</a></h4><div class="am-g blog-content">' + data[i]["content"] + '</div></article>');
                 $('#article').append('<hr class="am-article-divider blog-hr">');
+            }
+        });
+    }
+    function getNewBlogList() {
+        $.getJSON("./getNewBlogList",{"limit":"10"}, function (data) {
+            var count = data.length;
+            for (var i = 0 ; i < count ; i++) {
+                $('newArticle').appendChild('<li><a href="/article/' + data[i]["cid"] + '">' + data[i]["title"] + '</a></li>');
             }
         });
     }

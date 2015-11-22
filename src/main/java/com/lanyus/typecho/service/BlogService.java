@@ -74,6 +74,21 @@ public class BlogService {
         return blogContents;
     }
 
+    public List<BlogContent> getNewBlogList(int limit) {
+        List<TypechoContents> typechoContentsList = typechoContentsMapper.selectAllByLimit(0,limit);
+        List<BlogContent> blogContents = new ArrayList<BlogContent>();
+        for (TypechoContents typechoContents : typechoContentsList) {
+            TypechoRelationshipsKey typechoRelationshipsKey = typechoRelationshipsMapper.selectByCid(typechoContents.getCid());
+            if (typechoRelationshipsKey != null) {
+                BlogContent blogContent = new BlogContent();
+                blogContent.setTitle(typechoContents.getTitle());
+                blogContent.setCid(String.valueOf(typechoContents.getCid()));
+                blogContents.add(blogContent);
+            }
+        }
+        return blogContents;
+    }
+
     public List<TypechoContents> getPage() {
         List<TypechoContents> typechoContentsList = typechoContentsMapper.selectAll();
         List<TypechoContents> typechoContentses = new ArrayList<TypechoContents>();
