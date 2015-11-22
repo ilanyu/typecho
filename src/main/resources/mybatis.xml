@@ -5,7 +5,7 @@
 <generatorConfiguration>
 
     <!-- !!!! Driver Class Path !!!! -->
-    <classPathEntry location="E:/mysql-connector-java-5.1.9.jar"/>
+    <classPathEntry location="D:/IdeaProjects/mysql-connector-java-5.1.37.jar"/>
 
     <context id="context" targetRuntime="MyBatis3">
         <commentGenerator>

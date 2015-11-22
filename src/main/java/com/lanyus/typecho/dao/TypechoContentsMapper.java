@@ -36,7 +36,6 @@ public interface TypechoContentsMapper {
      * @mbggenerated
      */
     TypechoContents selectByPrimaryKey(Integer cid);
-
     List<TypechoContents> selectAll();
 
     /**

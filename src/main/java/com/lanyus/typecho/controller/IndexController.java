@@ -65,7 +65,7 @@ public class IndexController {
 
     @RequestMapping("/getBlog")
     public String getBlog() {
-
+        System.out.println(blogService.getBlog());
         return "";
     }
 
