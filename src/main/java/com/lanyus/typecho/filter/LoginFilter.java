@@ -17,7 +17,8 @@ public class LoginFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response
             , FilterChain filterChain) throws ServletException, IOException {
         Object username = request.getSession().getAttribute("username");
-        if (null == username) {
+        Object password = request.getSession().getAttribute("password");
+        if (null == username || null == password) {
             response.setHeader("Location","/login");
         } else {
             filterChain.doFilter(request, response);
