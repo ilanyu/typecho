@@ -1,6 +1,7 @@
 package com.lanyus.typecho.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.lanyus.typecho.domain.BlogContent;
 import com.lanyus.typecho.service.BlogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -84,9 +87,17 @@ public class IndexController {
     @RequestMapping("/getIndexBlog")
     public void getIndexBlog(@RequestParam(value = "start",required = false,defaultValue = "0") String start,
                              @RequestParam(value = "limit",required = false,defaultValue = "5") String limit,
-                             PrintWriter out) {
+                             PrintWriter out, HttpSession session) {
+        if (session.getAttribute("IndexBlog") == null) {
+            session.setAttribute("IndexBlog",blogService.getIndexBlog());
+        }
+        List<BlogContent> blogContents = (List<BlogContent>) session.getAttribute("IndexBlog");
+        List<BlogContent> outBlogContents = new ArrayList<BlogContent>();
+        for (int i = Integer.parseInt(start); i < Integer.parseInt(limit); i++) {
+            outBlogContents.add(blogContents.get(i));
+        }
         try {
-            out.print(JSON.toJSONString(blogService.getIndexBlog(Integer.valueOf(start),Integer.valueOf(limit))));
+            out.print(JSON.toJSONString(outBlogContents));
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
@@ -95,9 +106,17 @@ public class IndexController {
 
     @RequestMapping("/getNewBlogList")
     public void getNewBlogList(@RequestParam(value = "limit",required = false,defaultValue = "5") String limit,
-                               PrintWriter out) {
+                               PrintWriter out,HttpSession session) {
+        if (session.getAttribute("NewBlogList") == null) {
+            session.setAttribute("NewBlogList",blogService.getNewBlogList());
+        }
+        List<BlogContent> newBlogContents = (List<BlogContent>) session.getAttribute("NewBlogList");
+        List<BlogContent> outNewBlogContents = new ArrayList<BlogContent>();
+        for (int i = 0; i < Integer.parseInt(limit); i++) {
+            outNewBlogContents.add(newBlogContents.get(i));
+        }
         try {
-            out.print(JSON.toJSONString(blogService.getNewBlogList(Integer.valueOf(limit))));
+            out.print(JSON.toJSONString(outNewBlogContents));
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }

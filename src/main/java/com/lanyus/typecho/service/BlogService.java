@@ -50,8 +50,8 @@ public class BlogService {
         return typechoContentses;
     }
 
-    public List<BlogContent> getIndexBlog(int start,int limit) {
-        List<TypechoContents> typechoContentsList = typechoContentsMapper.selectAllByLimit(start,limit);
+    public List<BlogContent> getIndexBlog() {
+        List<TypechoContents> typechoContentsList = typechoContentsMapper.selectAll();
         List<BlogContent> blogContents = new ArrayList<BlogContent>();
         for (TypechoContents typechoContents : typechoContentsList) {
             TypechoRelationshipsKey typechoRelationshipsKey = typechoRelationshipsMapper.selectByCid(typechoContents.getCid());
@@ -74,8 +74,8 @@ public class BlogService {
         return blogContents;
     }
 
-    public List<BlogContent> getNewBlogList(int limit) {
-        List<TypechoContents> typechoContentsList = typechoContentsMapper.selectAllByLimit(0,limit);
+    public List<BlogContent> getNewBlogList() {
+        List<TypechoContents> typechoContentsList = typechoContentsMapper.selectAll();
         List<BlogContent> blogContents = new ArrayList<BlogContent>();
         for (TypechoContents typechoContents : typechoContentsList) {
             TypechoRelationshipsKey typechoRelationshipsKey = typechoRelationshipsMapper.selectByCid(typechoContents.getCid());
