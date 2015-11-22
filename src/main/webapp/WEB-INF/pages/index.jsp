@@ -9,8 +9,10 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <%--<link rel="alternate icon" type="image/png" href="{{assets}}i/favicon.png">--%>
-    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.4.2/css/amazeui.css"/>
+    <link rel="stylesheet" href="//cdn.amazeui.org/amazeui/2.4.2/css/amazeui.css"/>
+    <script src="//lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.js"></script>
+    <script src="//cdn.amazeui.org/amazeui/2.4.2/js/amazeui.min.js"></script>
+
     <style>
         @media only screen and (min-width: 1200px) {
             .blog-g-fixed {
@@ -78,20 +80,8 @@
             class="am-icon-bars"></span></button>
 
     <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
-        <ul class="am-nav am-nav-pills am-topbar-nav">
-            <li class="am-active"><a href="#">首页</a></li>
-            <li><a href="#">项目</a></li>
-            <li class="am-dropdown" data-am-dropdown>
-                <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
-                    菜单 <span class="am-icon-caret-down"></span>
-                </a>
-                <ul class="am-dropdown-content">
-                    <li class="am-dropdown-header">标题</li>
-                    <li><a href="#">关于我们</a></li>
-                    <li><a href="#">关于字体</a></li>
-                    <li><a href="#">TIPS</a></li>
-                </ul>
-            </li>
+        <ul class="am-nav am-nav-pills am-topbar-nav" id="nav">
+            <li><a href="/">首页</a></li>
         </ul>
 
         <form class="am-topbar-form am-topbar-left am-form-inline am-topbar-right" role="search">
@@ -104,7 +94,92 @@
     </div>
 </header>
 
+<div class="am-g am-g-fixed blog-g-fixed">
+    <div class="am-u-md-8" id="article">
+        <button type="button" style="position:absolute;bottom:5px;" class="am-btn am-btn-primary am-btn-block" onclick="loadMoreBlog()">点击加载更多内容</button>
+    </div>
 
+    <div class="am-u-md-4 blog-sidebar">
+        <div class="am-panel-group">
+            <section class="am-panel am-panel-default">
+                <div class="am-panel-hd">关于我</div>
+                <div class="am-panel-bd">
+                    <p>前所未有的中文云端字型服务，让您在 web 平台上自由使用高品质中文字体，跨平台、可搜寻，而且超美。云端字型是我们的事业，推广字型学知识是我们的志业。从字体出发，关心设计与我们的生活，justfont blog
+                        正是為此而生。</p>
+                    <a class="am-btn am-btn-success am-btn-sm" href="#">查看更多 →</a>
+                </div>
+            </section>
+            <section class="am-panel am-panel-default">
+                <div class="am-panel-hd">文章目录</div>
+                <ul class="am-list blog-list">
+                    <li><a href="#">Google fonts 的字體（sans-serif 篇）</a></li>
+                    <li><a href="#">[but]服貿最前線？－再訪桃園機場</a></li>
+                    <li><a href="#">到日星鑄字行學字型</a></li>
+                    <li><a href="#">glyph font vs. 漢字（上）</a></li>
+                    <li><a href="#">浙江民間書刻體上線</a></li>
+                    <li><a href="#">[極短篇] Android v.s iOS，誰的字體好讀？</a></li>
+                </ul>
+            </section>
 
+            <section class="am-panel am-panel-default">
+                <div class="am-panel-hd">团队成员</div>
+                <div class="am-panel-bd">
+                    <ul class="am-avg-sm-4 blog-team">
+                        <li><img class="am-thumbnail"
+                                 src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
+                        </li>
+                        <li><img class="am-thumbnail"
+                                 src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
+                        </li>
+                        <li><img class="am-thumbnail"
+                                 src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
+                        </li>
+                        <li><img class="am-thumbnail"
+                                 src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
+                        </li>
+                        <li><img class="am-thumbnail"
+                                 src="http://img4.duitang.com/uploads/blog/201406/15/20140615230159_kjTmC.thumb.224_0.jpeg" alt=""/>
+                        </li>
+                        <li><img class="am-thumbnail"
+                                 src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
+                        </li>
+                        <li><img class="am-thumbnail"
+                                 src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
+                        </li>
+                        <li><img class="am-thumbnail"
+                                 src="http://img4.duitang.com/uploads/blog/201406/15/20140615230159_kjTmC.thumb.224_0.jpeg" alt=""/>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    nowBlogCount = 0;
+    function getPages() {
+        $('#nav').append("<li><a href='#'>测试</a></li>");
+    }
+    function getIndexBlog(start,limit) {
+        $.getJSON("./getIndexBlog",{"start":start,"limit":limit}, function (data) {
+            var count = data.length;
+            for (var i = 0; i < count ; i++) {
+                $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title"><a href="' + data[i]["cid"] + '">' + data[i]["title"] + '</a></h3><h4 class="am-article-meta blog-meta">by <a href="/author/' + data[i]["authorId"] + '">' + data[i]["author"] + '</a> posted on ' + data[i]["date"] + ' under <a href="' + data[i]["categorySlug"] + '">' + data[i]["category"] + '</a></h4><div class="am-g blog-content">' + data[i]["content"] + '</div></article>');
+                $('#article').append('<hr class="am-article-divider blog-hr">');
+            }
+        });
+    }
+    function loadMoreBlog() {
+        getIndexBlog(nowBlogCount,5);
+        nowBlogCount += 5;
+    }
+    $(document).ready(function () {
+        getPages();
+        getIndexBlog(nowBlogCount,2);
+        nowBlogCount += 2;
+    });
+</script>
 </body>
 </html>

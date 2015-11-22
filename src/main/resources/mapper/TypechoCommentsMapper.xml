@@ -54,6 +54,9 @@
     from typecho_comments
     where `coid` = #{coid,jdbcType=INTEGER}
   </select>
+  <select id="countByCid" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM typecho_comments WHERE `cid` = #{cid,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     <!--
       WARNING - @mbggenerated

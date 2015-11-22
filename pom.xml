@@ -84,6 +84,11 @@
             <artifactId>fastjson</artifactId>
             <version>1.1.15</version>
         </dependency>
+        <dependency>
+            <groupId>org.pegdown</groupId>
+            <artifactId>pegdown</artifactId>
+            <version>1.2.1</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>typecho</finalName>

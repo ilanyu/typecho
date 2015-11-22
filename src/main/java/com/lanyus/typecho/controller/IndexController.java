@@ -81,9 +81,15 @@ public class IndexController {
         return "register";
     }
 
-    @RequestMapping("/getBlog")
-    public void getBlog(PrintWriter out) {
-        out.print(JSON.toJSONString(blogService.getBlog()));
+    @RequestMapping("/getIndexBlog")
+    public void getIndexBlog(@RequestParam(value = "start",required = false,defaultValue = "0") String start,
+                             @RequestParam(value = "limit",required = false,defaultValue = "5") String limit,
+                             PrintWriter out) {
+        try {
+            out.print(JSON.toJSONString(blogService.getIndexBlog(Integer.valueOf(start),Integer.valueOf(limit))));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
         out.close();
     }
 

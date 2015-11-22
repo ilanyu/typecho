@@ -1,14 +1,14 @@
 package com.lanyus.typecho.service;
 
-import com.lanyus.typecho.dao.TypechoContentsMapper;
-import com.lanyus.typecho.dao.TypechoRelationshipsMapper;
-import com.lanyus.typecho.dao.TypechoUsersMapper;
-import com.lanyus.typecho.domain.TypechoContents;
-import com.lanyus.typecho.domain.TypechoUsers;
+import com.lanyus.typecho.dao.*;
+import com.lanyus.typecho.domain.*;
+import org.pegdown.PegDownProcessor;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +23,10 @@ public class BlogService {
     TypechoRelationshipsMapper typechoRelationshipsMapper;
     @Resource
     TypechoUsersMapper typechoUsersMapper;
+    @Resource
+    TypechoMetasMapper typechoMetasMapper;
+    @Resource
+    TypechoCommentsMapper typechoCommentsMapper;
 
     public boolean login(String username, String password) {
         TypechoUsers typechoUsers = typechoUsersMapper.selectByName(username);
@@ -44,6 +48,30 @@ public class BlogService {
             }
         }
         return typechoContentses;
+    }
+
+    public List<BlogContent> getIndexBlog(int start,int limit) {
+        List<TypechoContents> typechoContentsList = typechoContentsMapper.selectAllByLimit(start,limit);
+        List<BlogContent> blogContents = new ArrayList<BlogContent>();
+        for (TypechoContents typechoContents : typechoContentsList) {
+            TypechoRelationshipsKey typechoRelationshipsKey = typechoRelationshipsMapper.selectByCid(typechoContents.getCid());
+            if (typechoRelationshipsKey != null) {
+                BlogContent blogContent = new BlogContent();
+                int authorId = typechoContents.getAuthorid();
+                blogContent.setAuthor(typechoUsersMapper.selectByPrimaryKey(authorId).getScreenname());
+                blogContent.setAuthorId(String.valueOf(authorId));
+                blogContent.setTitle(typechoContents.getTitle());
+                blogContent.setCid(String.valueOf(typechoContents.getCid()));
+                blogContent.setContent(new PegDownProcessor().markdownToHtml(typechoContents.getText()));
+                TypechoMetas typechoMetas = typechoMetasMapper.selectByPrimaryKey(typechoRelationshipsKey.getMid());
+                blogContent.setCategory(typechoMetas.getName());
+                blogContent.setCategorySlug(typechoMetas.getSlug());
+                blogContent.setComment(String.valueOf(typechoCommentsMapper.countByCid(typechoContents.getCid())));
+                blogContent.setDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date(typechoContents.getCreated() * 1000L)));
+                blogContents.add(blogContent);
+            }
+        }
+        return blogContents;
     }
 
     public List<TypechoContents> getPage() {
