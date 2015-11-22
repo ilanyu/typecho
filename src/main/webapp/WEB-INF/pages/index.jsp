@@ -104,7 +104,7 @@
             <section class="am-panel am-panel-default">
                 <div class="am-panel-hd">捐赠</div>
                 <div class="am-panel-bd">
-                    <img src="http://blog.lanyus.com/alipay.png" align="center">
+                    <div class="am-u-sm-centered"><img src="http://blog.lanyus.com/alipay.png" /></div>
                 </div>
             </section>
             <section class="am-panel am-panel-default">
@@ -146,7 +146,7 @@
         $.getJSON("./getNewBlogList",{"limit":"10"}, function (data) {
             var count = data.length;
             for (var i = 0 ; i < count ; i++) {
-                $('newArticle').appendChild('<li><a href="/article/' + data[i]["cid"] + '">' + data[i]["title"] + '</a></li>');
+                $('#newArticle').append('<li><a href="/article/' + data[i]["cid"] + '">' + data[i]["title"] + '</a></li>');
             }
         });
     }
@@ -158,6 +158,7 @@
         getPages();
         getIndexBlog(nowBlogCount,2);
         nowBlogCount += 2;
+        getNewBlogList();
     });
 </script>
 </body>
