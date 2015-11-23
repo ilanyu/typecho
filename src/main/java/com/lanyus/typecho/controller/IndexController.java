@@ -140,9 +140,24 @@ public class IndexController {
         out.close();
     }
 
+    @RequestMapping("/getPage/{cid}")
+    public void getPage(@PathVariable("cid") String cid,PrintWriter out) {
+        try {
+            out.print(JSON.toJSONString(blogService.getPage(Integer.parseInt(cid))));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        out.close();
+    }
+
     @RequestMapping("/blog")
     public String blog() {
         return "blog";
+    }
+
+    @RequestMapping("/page")
+    public String page() {
+        return "page";
     }
 
     @RequestMapping("/")

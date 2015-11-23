@@ -81,7 +81,7 @@
 
     <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
         <ul class="am-nav am-nav-pills am-topbar-nav" id="nav">
-            <li><a href="/">首页</a></li>
+            <li class="am-active"><a href="/">首页</a></li>
         </ul>
 
         <form class="am-topbar-form am-topbar-left am-form-inline am-topbar-right" role="search">

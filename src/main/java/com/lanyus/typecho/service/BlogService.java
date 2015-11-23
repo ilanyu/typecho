@@ -110,4 +110,13 @@ public class BlogService {
         }
         return pages;
     }
+
+    public Page getPage(int cid) {
+        TypechoContents typechoContents = typechoContentsMapper.selectByPrimaryKey(cid);
+        Page page = new Page();
+        page.setTitle(typechoContents.getTitle());
+        page.setContent(typechoContents.getText());
+        page.setCid(String.valueOf(cid));
+        return page;
+    }
 }
