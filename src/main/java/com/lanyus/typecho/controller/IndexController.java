@@ -5,6 +5,7 @@ import com.lanyus.typecho.domain.BlogContent;
 import com.lanyus.typecho.service.BlogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -123,10 +124,25 @@ public class IndexController {
         out.close();
     }
 
-    @RequestMapping("/getPage")
+    @RequestMapping("/getPageList")
     public void getPage(PrintWriter out) {
-        out.print(JSON.toJSONString(blogService.getPage()));
+        out.print(JSON.toJSONString(blogService.getPageList()));
         out.close();
+    }
+
+    @RequestMapping("/getBlog/{cid}")
+    public void getBlog(@PathVariable("cid") String cid,PrintWriter out) {
+        try {
+            out.print(JSON.toJSONString(blogService.getBlog(Integer.parseInt(cid))));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        out.close();
+    }
+
+    @RequestMapping("/blog")
+    public String blog() {
+        return "blog";
     }
 
     @RequestMapping("/")

@@ -39,15 +39,22 @@ public class BlogService {
         return false;
     }
 
-    public List<TypechoContents> getBlog() {
-        List<TypechoContents> typechoContentsList = typechoContentsMapper.selectAll();
-        List<TypechoContents> typechoContentses = new ArrayList<TypechoContents>();
-        for (TypechoContents typechoContents : typechoContentsList) {
-            if (typechoRelationshipsMapper.selectByCid(typechoContents.getCid()) != null) {
-                typechoContentses.add(typechoContents);
-            }
-        }
-        return typechoContentses;
+    public BlogContent getBlog(int cid) {
+        TypechoContents typechoContents = typechoContentsMapper.selectByPrimaryKey(cid);
+        BlogContent blogContent = new BlogContent();
+        int authorId = typechoContents.getAuthorid();
+        blogContent.setAuthor(typechoUsersMapper.selectByPrimaryKey(authorId).getScreenname());
+        blogContent.setAuthorId(String.valueOf(authorId));
+        blogContent.setTitle(typechoContents.getTitle());
+        blogContent.setCid(String.valueOf(typechoContents.getCid()));
+        blogContent.setContent(new PegDownProcessor().markdownToHtml(typechoContents.getText()));
+        TypechoRelationshipsKey typechoRelationshipsKey = typechoRelationshipsMapper.selectByCid(typechoContents.getCid());
+        TypechoMetas typechoMetas = typechoMetasMapper.selectByPrimaryKey(typechoRelationshipsKey.getMid());
+        blogContent.setCategory(typechoMetas.getName());
+        blogContent.setCategorySlug(typechoMetas.getSlug());
+        blogContent.setComment(String.valueOf(typechoCommentsMapper.countByCid(typechoContents.getCid())));
+        blogContent.setDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date(typechoContents.getCreated() * 1000L)));
+        return blogContent;
     }
 
     public List<BlogContent> getIndexBlog() {
@@ -89,14 +96,17 @@ public class BlogService {
         return blogContents;
     }
 
-    public List<TypechoContents> getPage() {
+    public List<Page> getPageList() {
         List<TypechoContents> typechoContentsList = typechoContentsMapper.selectAll();
-        List<TypechoContents> typechoContentses = new ArrayList<TypechoContents>();
+        List<Page> pages = new ArrayList<Page>();
         for (TypechoContents typechoContents : typechoContentsList) {
             if (typechoRelationshipsMapper.selectByCid(typechoContents.getCid()) == null) {
-                typechoContentses.add(typechoContents);
+                Page page = new Page();
+                page.setCid(String.valueOf(typechoContents.getCid()));
+                page.setContent(new PegDownProcessor().markdownToHtml(typechoContents.getText()));
+                page.setTitle(typechoContents.getTitle());
             }
         }
-        return typechoContentses;
+        return pages;
     }
 }

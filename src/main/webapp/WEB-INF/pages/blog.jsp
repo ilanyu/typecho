@@ -96,7 +96,6 @@
 
 <div class="am-g am-g-fixed blog-g-fixed">
     <div class="am-u-md-8" id="article">
-        <button type="button" style="position:absolute;bottom:5px;" class="am-btn am-btn-primary am-btn-block" onclick="loadMoreBlog()" id="loadMore">点击加载更多内容</button>
     </div>
 
     <div class="am-u-md-4 blog-sidebar">
@@ -130,21 +129,23 @@
 
 <script>
     nowBlogCount = 0;
+    function getUrlParam(name){
+        //构造一个含有目标参数的正则表达式对象
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        //匹配目标参数
+        var r = window.location.search.substr(1).match(reg);
+        //返回参数值
+        if (r!=null) return unescape(r[2]);
+        return null;
+    }
     function getPages() {
         $('#nav').append("<li><a href='#'>测试</a></li>");
     }
-    function getIndexBlog(start,limit) {
-        var count = 0;
-        $.ajaxSettings.async = false;
-        $.getJSON("./getIndexBlog",{"start":start,"limit":limit}, function (data) {
-            count = data.length;
-            for (var i = 0; i < count ; i++) {
-                $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title"><a href="/blog?cid=' + data[i]["cid"] + '">' + data[i]["title"] + '</a></h3><h4 class="am-article-meta blog-meta">by <a href="/author?uid=' + data[i]["authorId"] + '">' + data[i]["author"] + '</a> posted on ' + data[i]["date"] + ' under <a href="' + data[i]["categorySlug"] + '">' + data[i]["category"] + '</a></h4><div class="am-g blog-content">' + data[i]["content"] + '</div></article>');
-                $('#article').append('<hr class="am-article-divider blog-hr">');
-            }
+    function getBlog() {
+        var cid = getUrlParam("cid");
+        $.getJSON("/getBlog/" + cid , "", function (data) {
+            $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title">' + data["title"] + '</h3><h4 class="am-article-meta blog-meta">by <a href="/author?uid=' + data["authorId"] + '">' + data["author"] + '</a> posted on ' + data["date"] + ' under <a href="' + data["categorySlug"] + '">' + data["category"] + '</a></h4><div class="am-g blog-content">' + data["content"] + '</div></article>');
         });
-        $.ajaxSettings.async = true;
-        return count;
     }
     function getNewBlogList() {
         var count = 0;
@@ -156,19 +157,10 @@
         });
         return count;
     }
-    function loadMoreBlog() {
-        var BlogCount = getIndexBlog(nowBlogCount,5);
-        if (BlogCount == 0) {
-            $('#loadMore').hide();
-        } else {
-            nowBlogCount += 5;
-        }
-    }
     $(document).ready(function () {
         getPages();
-        getIndexBlog(nowBlogCount,2);
-        nowBlogCount += 2;
         getNewBlogList();
+        getBlog();
     });
 </script>
 </body>
