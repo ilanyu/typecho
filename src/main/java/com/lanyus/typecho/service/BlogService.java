@@ -62,7 +62,7 @@ public class BlogService {
         List<BlogContent> blogContents = new ArrayList<BlogContent>();
         for (TypechoContents typechoContents : typechoContentsList) {
             TypechoRelationshipsKey typechoRelationshipsKey = typechoRelationshipsMapper.selectByCid(typechoContents.getCid());
-            if (typechoRelationshipsKey != null) {
+            if (typechoContents.getType().equals("post")) {
                 BlogContent blogContent = new BlogContent();
                 int authorId = typechoContents.getAuthorid();
                 blogContent.setAuthor(typechoUsersMapper.selectByPrimaryKey(authorId).getScreenname());
@@ -86,7 +86,7 @@ public class BlogService {
         List<BlogContent> blogContents = new ArrayList<BlogContent>();
         for (TypechoContents typechoContents : typechoContentsList) {
             TypechoRelationshipsKey typechoRelationshipsKey = typechoRelationshipsMapper.selectByCid(typechoContents.getCid());
-            if (typechoRelationshipsKey != null) {
+            if (typechoContents.getType().equals("post")) {
                 BlogContent blogContent = new BlogContent();
                 blogContent.setTitle(typechoContents.getTitle());
                 blogContent.setCid(String.valueOf(typechoContents.getCid()));
@@ -100,11 +100,12 @@ public class BlogService {
         List<TypechoContents> typechoContentsList = typechoContentsMapper.selectAll();
         List<Page> pages = new ArrayList<Page>();
         for (TypechoContents typechoContents : typechoContentsList) {
-            if (typechoRelationshipsMapper.selectByCid(typechoContents.getCid()) == null) {
+            if (typechoContents.getType().equals("page")) {
                 Page page = new Page();
                 page.setCid(String.valueOf(typechoContents.getCid()));
                 page.setContent(new PegDownProcessor().markdownToHtml(typechoContents.getText()));
                 page.setTitle(typechoContents.getTitle());
+                pages.add(page);
             }
         }
         return pages;

@@ -10,7 +10,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="stylesheet" href="//cdn.amazeui.org/amazeui/2.4.2/css/amazeui.css"/>
-    <script src="//lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.js"></script>
+    <script src="//lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js"></script>
     <script src="//cdn.amazeui.org/amazeui/2.4.2/js/amazeui.min.js"></script>
 
     <style>
@@ -130,8 +130,13 @@
 
 <script>
     nowBlogCount = 0;
-    function getPages() {
-        $('#nav').append("<li><a href='#'>测试</a></li>");
+    function getPageList() {
+        $.getJSON("./getPageList","", function (data) {
+            var count = data.length;
+            for (var i = 0; i < count ; i++) {
+                $('#nav').append("<li><a href='/page?cid=" + data[i]["cid"] + "'>" + data[i]["title"] + "</a></li>");
+            }
+        });
     }
     function getIndexBlog(start,limit) {
         var count = 0;
@@ -151,7 +156,7 @@
         $.getJSON("./getNewBlogList",{"limit":"10"}, function (data) {
             count = data.length;
             for (var i = 0 ; i < count ; i++) {
-                $('#newArticle').append('<li><a href="/article/' + data[i]["cid"] + '">' + data[i]["title"] + '</a></li>');
+                $('#newArticle').append('<li><a href="/blog?cid=' + data[i]["cid"] + '">' + data[i]["title"] + '</a></li>');
             }
         });
         return count;
@@ -165,7 +170,7 @@
         }
     }
     $(document).ready(function () {
-        getPages();
+        getPageList();
         getIndexBlog(nowBlogCount,2);
         nowBlogCount += 2;
         getNewBlogList();
