@@ -93,7 +93,7 @@ public class IndexController {
         }
         List<BlogContent> blogContents = (List<BlogContent>) session.getAttribute("IndexBlog");
         List<BlogContent> outBlogContents = new ArrayList<BlogContent>();
-        for (int i = Integer.parseInt(start); i <= Integer.parseInt(limit); i++) {
+        for (int i = Integer.parseInt(start); i < Integer.parseInt(start) + Integer.parseInt(limit); i++) {
             outBlogContents.add(blogContents.get(i));
         }
         try {
@@ -112,7 +112,7 @@ public class IndexController {
         }
         List<BlogContent> newBlogContents = (List<BlogContent>) session.getAttribute("NewBlogList");
         List<BlogContent> outNewBlogContents = new ArrayList<BlogContent>();
-        for (int i = 0; i <= Integer.parseInt(limit); i++) {
+        for (int i = 0; i < Integer.parseInt(limit); i++) {
             outNewBlogContents.add(newBlogContents.get(i));
         }
         try {

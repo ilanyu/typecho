@@ -96,7 +96,7 @@
 
 <div class="am-g am-g-fixed blog-g-fixed">
     <div class="am-u-md-8" id="article">
-        <button type="button" style="position:absolute;bottom:5px;" class="am-btn am-btn-primary am-btn-block" onclick="loadMoreBlog()">点击加载更多内容</button>
+        <button type="button" style="position:absolute;bottom:5px;" class="am-btn am-btn-primary am-btn-block" onclick="loadMoreBlog()" id="loadMore">点击加载更多内容</button>
     </div>
 
     <div class="am-u-md-4 blog-sidebar">
