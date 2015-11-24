@@ -48,7 +48,7 @@ public class BlogService {
         blogContent.setAuthorId(String.valueOf(authorId));
         blogContent.setTitle(typechoContents.getTitle());
         blogContent.setCid(String.valueOf(typechoContents.getCid()));
-        blogContent.setContent(new PegDownProcessor().markdownToHtml(typechoContents.getText()).replaceAll("(\r\n|\r|\n|\n\r)","<br />"));
+        blogContent.setContent(new MarkdownProcessor().markdown(typechoContents.getText()).replaceAll("(\r\n|\r|\n|\n\r)","<br />"));
         TypechoRelationshipsKey typechoRelationshipsKey = typechoRelationshipsMapper.selectByCid(typechoContents.getCid());
         TypechoMetas typechoMetas = typechoMetasMapper.selectByPrimaryKey(typechoRelationshipsKey.getMid());
         blogContent.setCategory(typechoMetas.getName());
@@ -70,7 +70,8 @@ public class BlogService {
                 blogContent.setAuthorId(String.valueOf(authorId));
                 blogContent.setTitle(typechoContents.getTitle());
                 blogContent.setCid(String.valueOf(typechoContents.getCid()));
-                blogContent.setContent(new PegDownProcessor().markdownToHtml(typechoContents.getText()).replaceAll("(\r\n|\r|\n|\n\r)","<br />"));
+                blogContent.setContent(new MarkdownProcessor().markdown(typechoContents.getText()).replaceAll("(\r\n|\r|\n|\n\r)","<br />").replaceAll("<br />(\\s*)<br />","<br />"));
+                System.out.println(new MarkdownProcessor().markdown(typechoContents.getText()).replaceAll("(\r\n|\r|\n|\n\r)","<br />").replaceAll("<br />(\\s*)<br />","<br />"));
                 TypechoMetas typechoMetas = typechoMetasMapper.selectByPrimaryKey(typechoRelationshipsKey.getMid());
                 blogContent.setCategory(typechoMetas.getName());
                 blogContent.setCategorySlug(typechoMetas.getSlug());
@@ -86,7 +87,6 @@ public class BlogService {
         List<TypechoContents> typechoContentsList = typechoContentsMapper.selectAll();
         List<BlogContent> blogContents = new ArrayList<BlogContent>();
         for (TypechoContents typechoContents : typechoContentsList) {
-            TypechoRelationshipsKey typechoRelationshipsKey = typechoRelationshipsMapper.selectByCid(typechoContents.getCid());
             if (typechoContents.getType().equals("post")) {
                 BlogContent blogContent = new BlogContent();
                 blogContent.setTitle(typechoContents.getTitle());
