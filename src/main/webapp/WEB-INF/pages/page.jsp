@@ -81,7 +81,7 @@
 
     <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
         <ul class="am-nav am-nav-pills am-topbar-nav" id="nav">
-            <li class="am-active"><a href="/">首页</a></li>
+            <li><a href="/">首页</a></li>
         </ul>
 
         <form class="am-topbar-form am-topbar-left am-form-inline am-topbar-right" role="search">
@@ -96,7 +96,6 @@
 
 <div class="am-g am-g-fixed blog-g-fixed">
     <div class="am-u-md-8" id="article">
-        <button type="button" style="position:absolute;bottom:5px;" class="am-btn am-btn-primary am-btn-block" onclick="loadMoreBlog()" id="loadMore">点击加载更多内容</button>
     </div>
 
     <div class="am-u-md-4 blog-sidebar">
@@ -130,11 +129,24 @@
 
 <script>
     nowBlogCount = 0;
+    function getUrlParam(name){
+        //构造一个含有目标参数的正则表达式对象
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        //匹配目标参数
+        var r = window.location.search.substr(1).match(reg);
+        //返回参数值
+        if (r!=null) return unescape(r[2]);
+        return null;
+    }
     function getPageList() {
         $.getJSON("./getPageList","", function (data) {
             var count = data.length;
             for (var i = 0; i < count ; i++) {
-                $('#nav').append("<li><a href='/page?cid=" + data[i]["cid"] + "'>" + data[i]["title"] + "</a></li>");
+                if (data[i]["cid"] == getUrlParam("cid")) {
+                    $('#nav').append("<li class='am-active'><a href='/page?cid=" + data[i]["cid"] + "'>" + data[i]["title"] + "</a></li>");
+                } else {
+                    $('#nav').append("<li><a href='/page?cid=" + data[i]["cid"] + "'>" + data[i]["title"] + "</a></li>");
+                }
             }
         });
     }
@@ -171,13 +183,13 @@
     }
     function getPage() {
         var cid = getUrlParam("cid");
-        $.getJSON("/getBlog/" + cid , "", function (data) {
-            $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title">' + data["title"] + '</h3><h4 class="am-article-meta blog-meta">by <a href="/author?uid=' + data["authorId"] + '">' + data["author"] + '</a> posted on ' + data["date"] + ' under <a href="' + data["categorySlug"] + '">' + data["category"] + '</a></h4><div class="am-g blog-content">' + data["content"] + '</div></article>');
+        $.getJSON("/getPage/" + cid , "", function (data) {
+            $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title">' + data["title"] + '</h3><div class="am-g blog-content">' + data["content"] + '</div></article>');
         });
     }
     $(document).ready(function () {
         getPageList();
-
+        getPage();
         getNewBlogList();
     });
 </script>

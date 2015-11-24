@@ -115,7 +115,7 @@ public class BlogService {
         TypechoContents typechoContents = typechoContentsMapper.selectByPrimaryKey(cid);
         Page page = new Page();
         page.setTitle(typechoContents.getTitle());
-        page.setContent(typechoContents.getText());
+        page.setContent(new PegDownProcessor().markdownToHtml(typechoContents.getText()));
         page.setCid(String.valueOf(cid));
         return page;
     }
