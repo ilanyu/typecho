@@ -2,6 +2,7 @@ package com.lanyus.typecho.service;
 
 import com.lanyus.typecho.dao.*;
 import com.lanyus.typecho.domain.*;
+import org.markdownj.MarkdownProcessor;
 import org.pegdown.PegDownProcessor;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +48,7 @@ public class BlogService {
         blogContent.setAuthorId(String.valueOf(authorId));
         blogContent.setTitle(typechoContents.getTitle());
         blogContent.setCid(String.valueOf(typechoContents.getCid()));
-        blogContent.setContent(new PegDownProcessor().markdownToHtml(typechoContents.getText()));
+        blogContent.setContent(new PegDownProcessor().markdownToHtml(typechoContents.getText()).replaceAll("(\r\n|\r|\n|\n\r)","<br />"));
         TypechoRelationshipsKey typechoRelationshipsKey = typechoRelationshipsMapper.selectByCid(typechoContents.getCid());
         TypechoMetas typechoMetas = typechoMetasMapper.selectByPrimaryKey(typechoRelationshipsKey.getMid());
         blogContent.setCategory(typechoMetas.getName());
@@ -69,7 +70,7 @@ public class BlogService {
                 blogContent.setAuthorId(String.valueOf(authorId));
                 blogContent.setTitle(typechoContents.getTitle());
                 blogContent.setCid(String.valueOf(typechoContents.getCid()));
-                blogContent.setContent(new PegDownProcessor().markdownToHtml(typechoContents.getText()));
+                blogContent.setContent(new PegDownProcessor().markdownToHtml(typechoContents.getText()).replaceAll("(\r\n|\r|\n|\n\r)","<br />"));
                 TypechoMetas typechoMetas = typechoMetasMapper.selectByPrimaryKey(typechoRelationshipsKey.getMid());
                 blogContent.setCategory(typechoMetas.getName());
                 blogContent.setCategorySlug(typechoMetas.getSlug());
@@ -115,7 +116,8 @@ public class BlogService {
         TypechoContents typechoContents = typechoContentsMapper.selectByPrimaryKey(cid);
         Page page = new Page();
         page.setTitle(typechoContents.getTitle());
-        page.setContent(new PegDownProcessor().markdownToHtml(typechoContents.getText()));
+//        page.setContent(new PegDownProcessor().markdownToHtml(typechoContents.getText()));
+        page.setContent(new MarkdownProcessor().markdown(typechoContents.getText()).replaceAll("(\r\n|\r|\n|\n\r)","<br />"));
         page.setCid(String.valueOf(cid));
         return page;
     }
