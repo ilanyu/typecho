@@ -12,18 +12,16 @@
 <script>
     nowBlogCount = 0;
     function loadMoreBlog() {
-        var BlogCount = getIndexBlog(nowBlogCount,5);
-        if (BlogCount == 0) {
-            $('#loadMore').hide();
-        } else {
-            nowBlogCount += 5;
-        }
+        getIndexBlog(nowBlogCount,2);
+        nowBlogCount += 2;
     }
     $(document).ready(function () {
         getPageList();
-        getIndexBlog(nowBlogCount,2);
-        nowBlogCount += 2;
         getNewBlogList();
+        $.ajaxSettings.async = false;
+        getIndexBlog(nowBlogCount,2);
+        $.ajaxSettings.async = true;
+        nowBlogCount += 2;
         $('#loadMore').show();
     });
 </script>

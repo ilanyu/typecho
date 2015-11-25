@@ -95,7 +95,7 @@ public class BlogService {
     }
 
     public List<Page> getPageList() {
-        List<TypechoContents> typechoContentsList = typechoContentsMapper.selectAll();
+        List<TypechoContents> typechoContentsList = typechoContentsMapper.selectAllOrderBy();
         List<Page> pages = new ArrayList<Page>();
         for (TypechoContents typechoContents : typechoContentsList) {
             if (typechoContents.getType().equals("page")) {

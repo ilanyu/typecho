@@ -21,23 +21,19 @@ function getPageList() {
     });
 }
 function getIndexBlog(start,limit) {
-    var count = 0;
-    $.ajaxSettings.async = false;
     $.getJSON("./getIndexBlog",{"start":start,"limit":limit}, function (data) {
-        count = data.length;
+        var count = data.length;
         for (var i = 0; i < count ; i++) {
             var offset = data[i]["content"].indexOf("<!--more-->");
             var content = marked(data[i]["content"], {breaks: true});
             if (offset == -1) {
                 $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title"><a href="/blog?cid=' + data[i]["cid"] + '">' + data[i]["title"] + '</a></h3><h4 class="am-article-meta blog-meta">by <a href="/author?uid=' + data[i]["authorId"] + '">' + data[i]["author"] + '</a> posted on ' + data[i]["date"] + ' under <a href="' + data[i]["categorySlug"] + '">' + data[i]["category"] + '</a></h4><div class="am-g blog-content">' + content + '</div></article>');
             } else {
-                $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title"><a href="/blog?cid=' + data[i]["cid"] + '">' + data[i]["title"] + '</a></h3><h4 class="am-article-meta blog-meta">by <a href="/author?uid=' + data[i]["authorId"] + '">' + data[i]["author"] + '</a> posted on ' + data[i]["date"] + ' under <a href="' + data[i]["categorySlug"] + '">' + data[i]["category"] + '</a></h4><div class="am-g blog-content">' + (content).substring(0, content.indexOf("<!--more-->")) + '<a href="/blog?cid=' + data[i]["cid"] + '"><button type="button" class="am-btn am-btn-primary am-btn-block">点击查看更多内容</button></a></div></article>');
+                $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title"><a href="/blog?cid=' + data[i]["cid"] + '">' + data[i]["title"] + '</a></h3><h4 class="am-article-meta blog-meta">by <a href="/author?uid=' + data[i]["authorId"] + '">' + data[i]["author"] + '</a> posted on ' + data[i]["date"] + ' under <a href="' + data[i]["categorySlug"] + '">' + data[i]["category"] + '</a></h4><div class="am-g blog-content">' + (content).substring(0, content.indexOf("<!--more-->")) + '<a href="/blog?cid=' + data[i]["cid"] + '"><button type="button" class="am-btn am-btn-primary am-btn-block">点击查看详细内容</button></a></div></article>');
             }
             $('#article').append('<hr class="am-article-divider blog-hr">');
         }
     });
-    $.ajaxSettings.async = true;
-    return count;
 }
 function getNewBlogList() {
     var count = 0;

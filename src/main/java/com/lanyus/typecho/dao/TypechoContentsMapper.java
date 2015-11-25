@@ -37,6 +37,7 @@ public interface TypechoContentsMapper {
      */
     TypechoContents selectByPrimaryKey(Integer cid);
     List<TypechoContents> selectAll();
+    List<TypechoContents> selectAllOrderBy();
     List<TypechoContents> selectAllByLimit(Integer start, Integer limit);
 
     /**
