@@ -27,10 +27,11 @@ function getIndexBlog(start,limit) {
         count = data.length;
         for (var i = 0; i < count ; i++) {
             var offset = data[i]["content"].indexOf("<!--more-->");
+            var content = marked(data[i]["content"], {breaks: true});
             if (offset == -1) {
-                $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title"><a href="/blog?cid=' + data[i]["cid"] + '">' + data[i]["title"] + '</a></h3><h4 class="am-article-meta blog-meta">by <a href="/author?uid=' + data[i]["authorId"] + '">' + data[i]["author"] + '</a> posted on ' + data[i]["date"] + ' under <a href="' + data[i]["categorySlug"] + '">' + data[i]["category"] + '</a></h4><div class="am-g blog-content">' + data[i]["content"] + '</div></article>');
+                $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title"><a href="/blog?cid=' + data[i]["cid"] + '">' + data[i]["title"] + '</a></h3><h4 class="am-article-meta blog-meta">by <a href="/author?uid=' + data[i]["authorId"] + '">' + data[i]["author"] + '</a> posted on ' + data[i]["date"] + ' under <a href="' + data[i]["categorySlug"] + '">' + data[i]["category"] + '</a></h4><div class="am-g blog-content">' + content + '</div></article>');
             } else {
-                $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title"><a href="/blog?cid=' + data[i]["cid"] + '">' + data[i]["title"] + '</a></h3><h4 class="am-article-meta blog-meta">by <a href="/author?uid=' + data[i]["authorId"] + '">' + data[i]["author"] + '</a> posted on ' + data[i]["date"] + ' under <a href="' + data[i]["categorySlug"] + '">' + data[i]["category"] + '</a></h4><div class="am-g blog-content">' + (data[i]["content"]).substring(0, data[i]["content"].indexOf("<!--more-->")) + '<a href="/blog?cid=' + data[i]["cid"] + '"><button type="button" class="am-btn am-btn-primary am-btn-block">点击查看更多内容</button></a></div></article>');
+                $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title"><a href="/blog?cid=' + data[i]["cid"] + '">' + data[i]["title"] + '</a></h3><h4 class="am-article-meta blog-meta">by <a href="/author?uid=' + data[i]["authorId"] + '">' + data[i]["author"] + '</a> posted on ' + data[i]["date"] + ' under <a href="' + data[i]["categorySlug"] + '">' + data[i]["category"] + '</a></h4><div class="am-g blog-content">' + (content).substring(0, content.indexOf("<!--more-->")) + '<a href="/blog?cid=' + data[i]["cid"] + '"><button type="button" class="am-btn am-btn-primary am-btn-block">点击查看更多内容</button></a></div></article>');
             }
             $('#article').append('<hr class="am-article-divider blog-hr">');
         }
@@ -51,12 +52,12 @@ function getNewBlogList() {
 function getBlog() {
     var cid = getUrlParam("cid");
     $.getJSON("/getBlog/" + cid , "", function (data) {
-        $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title">' + data["title"] + '</h3><h4 class="am-article-meta blog-meta">by <a href="/author?uid=' + data["authorId"] + '">' + data["author"] + '</a> posted on ' + data["date"] + ' under <a href="' + data["categorySlug"] + '">' + data["category"] + '</a></h4><div class="am-g blog-content">' + data["content"] + '</div></article>');
+        $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title">' + data["title"] + '</h3><h4 class="am-article-meta blog-meta">by <a href="/author?uid=' + data["authorId"] + '">' + data["author"] + '</a> posted on ' + data["date"] + ' under <a href="' + data["categorySlug"] + '">' + data["category"] + '</a></h4><div class="am-g blog-content">' + marked(data["content"], {breaks: true}) + '</div></article>');
     });
 }
 function getPage() {
     var cid = getUrlParam("cid");
     $.getJSON("/getPage/" + cid , "", function (data) {
-        $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title">' + data["title"] + '</h3><div class="am-g blog-content">' + data["content"] + '</div></article>');
+        $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title">' + data["title"] + '</h3><div class="am-g blog-content">' + marked(data["content"], {breaks: true}) + '</div></article>');
     });
 }
