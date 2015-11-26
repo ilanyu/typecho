@@ -52,6 +52,7 @@ public class BlogService {
         blogContent.setCategory(typechoMetas.getName());
         blogContent.setCategorySlug(typechoMetas.getSlug());
         blogContent.setComment(String.valueOf(typechoCommentsMapper.countByCid(typechoContents.getCid())));
+        blogContent.setAllowComment(typechoContents.getAllowcomment());
         blogContent.setDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date(typechoContents.getCreated() * 1000L)));
         return blogContent;
     }
@@ -115,6 +116,7 @@ public class BlogService {
         page.setTitle(typechoContents.getTitle());
         page.setContent(typechoContents.getText());
         page.setCid(String.valueOf(cid));
+        page.setAllowComment(typechoContents.getAllowcomment());
         return page;
     }
 }

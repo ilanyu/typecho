@@ -13,6 +13,7 @@
     <script src="//lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.js"></script>
     <script src="//cdn.amazeui.org/amazeui/2.4.2/js/amazeui.min.js"></script>
     <script src="/js/marked.js"></script>
+    <script src="/js/jQuery.md5.js"></script>
 
     <style>
         @media only screen and (min-width: 1200px) {

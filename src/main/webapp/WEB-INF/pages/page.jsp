@@ -8,6 +8,7 @@
 </div>
 <script src="${pageContext.request.contextPath}/js/function.js"></script>
 <script>
+    var duoshuoQuery = {short_name:"ilanyu-typecho"};
     $(document).ready(function () {
         getPageList();
         getPage();

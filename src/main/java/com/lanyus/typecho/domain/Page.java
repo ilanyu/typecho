@@ -7,6 +7,7 @@ public class Page {
     public String cid;
     public String title;
     public String content;
+    public String allowComment;
 
     public String getCid() {
         return cid;
@@ -30,5 +31,13 @@ public class Page {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getAllowComment() {
+        return allowComment;
+    }
+
+    public void setAllowComment(String allowComment) {
+        this.allowComment = allowComment;
     }
 }

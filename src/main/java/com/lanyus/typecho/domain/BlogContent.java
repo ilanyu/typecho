@@ -13,6 +13,7 @@ public class BlogContent {
     public String categorySlug;
     public String comment;
     public String cid;
+    public String allowComment;
 
     public String getTitle() {
         return title;
@@ -84,5 +85,13 @@ public class BlogContent {
 
     public void setCid(String cid) {
         this.cid = cid;
+    }
+
+    public String getAllowComment() {
+        return allowComment;
+    }
+
+    public void setAllowComment(String allowComment) {
+        this.allowComment = allowComment;
     }
 }

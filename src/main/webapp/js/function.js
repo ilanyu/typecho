@@ -49,11 +49,33 @@ function getBlog() {
     var cid = getUrlParam("cid");
     $.getJSON("/getBlog/" + cid , "", function (data) {
         $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title">' + data["title"] + '</h3><h4 class="am-article-meta blog-meta">by <a href="/author?uid=' + data["authorId"] + '">' + data["author"] + '</a> posted on ' + data["date"] + ' under <a href="' + data["categorySlug"] + '">' + data["category"] + '</a></h4><div class="am-g blog-content">' + marked(data["content"], {breaks: true}) + '</div></article>');
+        if (data["allowComment"] == "1") {
+            $('#article').append('<div class="ds-thread" data-thread-key="' + $.md5(window.location.href) + '" data-title="' + data["title"] + '" data-url="' + window.location.href + '"></div>');
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        }
     });
 }
 function getPage() {
     var cid = getUrlParam("cid");
     $.getJSON("/getPage/" + cid , "", function (data) {
-        $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title">' + data["title"] + '</h3><div class="am-g blog-content">' + marked(data["content"], {breaks: true}) + '</div></article>');
+        $('#article').prepend('<article class="blog-main"><h3 class="am-article-title blog-title">' + data["title"] + '</h3><div class="am-g blog-content">' + marked(data["content"], {breaks: true}) + '</div></article>');
+        if (data["allowComment"] == "1") {
+            $('#article').append('<div class="ds-thread" data-thread-key="' + $.md5(window.location.href) + '" data-title="' + data["title"] + '" data-url="' + window.location.href + '"></div>');
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        }
     });
 }
