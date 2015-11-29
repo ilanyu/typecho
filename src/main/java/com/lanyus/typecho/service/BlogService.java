@@ -143,4 +143,30 @@ public class BlogService {
         }
         return blogContents;
     }
+
+    public List<BlogContent> getAuthor(int uid) {
+        List<TypechoContents> typechoContentsList = typechoContentsMapper.selectAll();
+        List<BlogContent> blogContents = new ArrayList<BlogContent>();
+        for (TypechoContents typechoContents : typechoContentsList) {
+            TypechoRelationshipsKey typechoRelationshipsKey = typechoRelationshipsMapper.selectByCid(typechoContents.getCid());
+            if (typechoContents.getType().equals("post")) {
+                int authorId = typechoContents.getAuthorid();
+                if (uid == authorId) {
+                    BlogContent blogContent = new BlogContent();
+                    blogContent.setAuthor(typechoUsersMapper.selectByPrimaryKey(authorId).getScreenname());
+                    blogContent.setAuthorId(String.valueOf(authorId));
+                    blogContent.setTitle(typechoContents.getTitle());
+                    blogContent.setCid(String.valueOf(typechoContents.getCid()));
+                    blogContent.setContent(typechoContents.getText());
+                    TypechoMetas typechoMetas = typechoMetasMapper.selectByPrimaryKey(typechoRelationshipsKey.getMid());
+                    blogContent.setCategory(typechoMetas.getName());
+                    blogContent.setCategorySlug(typechoMetas.getSlug());
+                    blogContent.setComment(String.valueOf(typechoCommentsMapper.countByCid(typechoContents.getCid())));
+                    blogContent.setDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date(typechoContents.getCreated() * 1000L)));
+                    blogContents.add(blogContent);
+                }
+            }
+        }
+        return blogContents;
+    }
 }

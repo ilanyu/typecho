@@ -152,17 +152,28 @@ public class IndexController {
 
     @RequestMapping("/getSearch/{wd}")
     public void getSearch(@PathVariable("wd") String wd, PrintWriter out) {
-        try {
-            out.print(JSON.toJSONString(blogService.getSearch(wd)));
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
+        out.print(JSON.toJSONString(blogService.getSearch(wd)));
         out.close();
     }
 
     @RequestMapping("/search")
     public String search() {
         return "search";
+    }
+
+    @RequestMapping("/getAuthor/{uid}")
+    public void getAuthor(@PathVariable("uid") String uid, PrintWriter out) {
+        try {
+            out.print(JSON.toJSONString(blogService.getAuthor(Integer.parseInt(uid))));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        out.close();
+    }
+
+    @RequestMapping("/author")
+    public String author() {
+        return "author";
     }
 
     @RequestMapping("/blog")
