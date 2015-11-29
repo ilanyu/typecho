@@ -8,9 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by Ly on 2015/11/20.
- */
 public class LoginFilter extends OncePerRequestFilter {
 
     @Override
@@ -19,7 +16,8 @@ public class LoginFilter extends OncePerRequestFilter {
         Object username = request.getSession().getAttribute("username");
         Object password = request.getSession().getAttribute("password");
         if (null == username || null == password) {
-            response.setHeader("Location","/login");
+            response.setStatus(302);
+            response.setHeader("location","/login");
         } else {
             filterChain.doFilter(request, response);
         }

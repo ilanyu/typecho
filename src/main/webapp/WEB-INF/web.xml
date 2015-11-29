@@ -29,7 +29,7 @@
     </filter>
     <filter-mapping>
         <filter-name>LoginFilter</filter-name>
-        <url-pattern>/admin/**</url-pattern>
+        <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>CharacterEncodingFilter</filter-name>

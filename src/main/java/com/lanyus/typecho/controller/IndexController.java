@@ -28,7 +28,7 @@ public class IndexController {
     @Resource
     BlogService blogService;
 
-    @RequestMapping("init")
+    @RequestMapping("/init")
     public void init(PrintWriter out) {
         out.close();
     }
@@ -81,7 +81,8 @@ public class IndexController {
     public void logout(HttpSession session, HttpServletResponse resp) {
         session.removeAttribute("username");
         session.removeAttribute("password");
-        resp.setHeader("Location","./");
+        resp.setStatus(302);
+        resp.setHeader("location","./");
     }
 
     @RequestMapping("/register")

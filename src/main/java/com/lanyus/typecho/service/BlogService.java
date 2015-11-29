@@ -26,6 +26,16 @@ public class BlogService {
     TypechoMetasMapper typechoMetasMapper;
     @Resource
     TypechoCommentsMapper typechoCommentsMapper;
+    @Resource
+    TypechoOptionsMapper typechoOptionsMapper;
+
+    public TypechoOptions getOptions(String name,int user) {
+        TypechoOptionsKey typechoOptionsKey = new TypechoOptionsKey();
+        typechoOptionsKey.setName(name);
+        typechoOptionsKey.setUser(user);
+        TypechoOptions typechoOptions = typechoOptionsMapper.selectByPrimaryKey(typechoOptionsKey);
+        return typechoOptions;
+    }
 
     public boolean login(String username, String password) {
         TypechoUsers typechoUsers = typechoUsersMapper.selectByName(username);
