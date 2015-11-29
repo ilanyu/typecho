@@ -49,17 +49,37 @@
       <ul class="am-list admin-sidebar-list">
         <li><a href="${pageContext.request.contextPath}/"><span class="am-icon-home"></span> 首页</a></li>
         <li class="admin-parent">
-          <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 页面模块 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-          <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
-            <li><a href="admin-user.html" class="am-cf"><span class="am-icon-check"></span> 个人资料<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-            <li><a href="admin-help.html"><span class="am-icon-puzzle-piece"></span> 帮助页</a></li>
-            <li><a href="admin-gallery.html"><span class="am-icon-th"></span> 相册页面<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
-            <li><a href="admin-log.html"><span class="am-icon-calendar"></span> 系统日志</a></li>
-            <li><a href="admin-404.html"><span class="am-icon-bug"></span> 404</a></li>
+          <a class="am-cf" data-am-collapse="{target: '#admin'}"><span class="am-icon-tachometer"></span> 控制台 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+          <ul class="am-list am-collapse admin-sidebar-sub am-in" id="admin">
+            <li><a href="${pageContext.request.contextPath}/admin/" class="am-cf"><span class="am-icon-check"></span> 概要<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+            <li><a href="admin-help.html"><span class="am-icon-puzzle-piece"></span> 个人设置</a></li>
           </ul>
         </li>
-        <li><a href="admin-table.html"><span class="am-icon-table"></span> 表格</a></li>
-        <li><a href="admin-form.html"><span class="am-icon-pencil-square-o"></span> 表单</a></li>
+          <li class="admin-parent">
+              <a class="am-cf" data-am-collapse="{target: '#write-post'}"><span class="am-icon-pencil-square-o"></span> 撰写 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+              <ul class="am-list am-collapse admin-sidebar-sub" id="write-post">
+                  <li><a href="admin-user.html" class="am-cf"><span class="am-icon-check"></span> 撰写文章<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+                  <li><a href="admin-help.html"><span class="am-icon-puzzle-piece"></span> 创建页面</a></li>
+              </ul>
+          </li>
+          <li class="admin-parent">
+              <a class="am-cf" data-am-collapse="{target: '#manage-posts'}"><span class="am-icon-folder-open"></span> 管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+              <ul class="am-list am-collapse admin-sidebar-sub" id="manage-posts">
+                  <li><a href="admin-user.html" class="am-cf"><span class="am-icon-check"></span> 文章<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+                  <li><a href="admin-help.html"><span class="am-icon-puzzle-piece"></span> 独立页面</a></li>
+                  <li><a href="admin-gallery.html"><span class="am-icon-th"></span> 分类<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
+                  <li><a href="admin-gallery.html"><span class="am-icon-th"></span> 标签<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
+                  <li><a href="admin-gallery.html"><span class="am-icon-th"></span> 文件<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
+                  <li><a href="admin-gallery.html"><span class="am-icon-th"></span> 用户<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
+              </ul>
+          </li>
+          <li class="admin-parent">
+              <a class="am-cf" data-am-collapse="{target: '#options-general'}"><span class="am-icon-wrench"></span> 设置 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+              <ul class="am-list am-collapse admin-sidebar-sub" id="options-general">
+                  <li><a href="admin-user.html" class="am-cf"><span class="am-icon-check"></span> 基本<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+                  <li><a href="admin-help.html"><span class="am-icon-puzzle-piece"></span> 评论</a></li>
+              </ul>
+          </li>
         <li><a href="${pageContext.request.contextPath}/logout"><span class="am-icon-sign-out"></span> 注销</a></li>
       </ul>
 
