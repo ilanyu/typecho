@@ -150,6 +150,21 @@ public class IndexController {
         out.close();
     }
 
+    @RequestMapping("/getSearch/{wd}")
+    public void getSearch(@PathVariable("wd") String wd, PrintWriter out) {
+        try {
+            out.print(JSON.toJSONString(blogService.getSearch(wd)));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        out.close();
+    }
+
+    @RequestMapping("/search")
+    public String search() {
+        return "search";
+    }
+
     @RequestMapping("/blog")
     public String blog() {
         return "blog";

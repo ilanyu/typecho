@@ -86,6 +86,13 @@
     <include refid="Blob_Column_List" />
     from typecho_contents ORDER by `order`
   </select>
+  <select id="selectLike" resultType="com.lanyus.typecho.domain.TypechoContents">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from typecho_contents WHERE `text` LIKE #{0}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     <!--
       WARNING - @mbggenerated

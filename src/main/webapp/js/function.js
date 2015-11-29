@@ -1,11 +1,7 @@
 function getUrlParam(name){
-    //构造一个含有目标参数的正则表达式对象
-    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-    //匹配目标参数
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i");
     var r = window.location.search.substr(1).match(reg);
-    //返回参数值
-    if (r!=null) return unescape(r[2]);
-    return null;
+    if (r!=null) return (r[2]); return null;
 }
 function getPageList() {
     $.getJSON("./getPageList","", function (data) {
@@ -76,6 +72,28 @@ function getPage() {
                 (document.getElementsByTagName('head')[0]
                 || document.getElementsByTagName('body')[0]).appendChild(ds);
             })();
+        }
+    });
+}
+
+function search() {
+	var searchBox = $('#searchBox').val();
+    window.location.href = "./search?wd=" + encodeURIComponent(searchBox);
+}
+
+function getSearch() {
+    var wd = getUrlParam("wd");
+    $.getJSON("./getSearch/" + wd,"", function (data) {
+        var count = data.length;
+        for (var i = 0; i < count ; i++) {
+            var offset = data[i]["content"].indexOf("<!--more-->");
+            var content = marked(data[i]["content"], {breaks: true});
+            if (offset == -1) {
+                $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title"><a href="./blog?cid=' + data[i]["cid"] + '">' + data[i]["title"] + '</a></h3><h4 class="am-article-meta blog-meta">by <a href="/author?uid=' + data[i]["authorId"] + '">' + data[i]["author"] + '</a> posted on ' + data[i]["date"] + ' under <a href="' + data[i]["categorySlug"] + '">' + data[i]["category"] + '</a></h4><div class="am-g blog-content">' + content + '</div></article>');
+            } else {
+                $('#article').append('<article class="blog-main"><h3 class="am-article-title blog-title"><a href="./blog?cid=' + data[i]["cid"] + '">' + data[i]["title"] + '</a></h3><h4 class="am-article-meta blog-meta">by <a href="/author?uid=' + data[i]["authorId"] + '">' + data[i]["author"] + '</a> posted on ' + data[i]["date"] + ' under <a href="' + data[i]["categorySlug"] + '">' + data[i]["category"] + '</a></h4><div class="am-g blog-content">' + (content).substring(0, content.indexOf("<!--more-->")) + '<a href="/blog?cid=' + data[i]["cid"] + '"><button type="button" class="am-btn am-btn-primary am-btn-block">点击查看详细内容</button></a></div></article>');
+            }
+            $('#article').append('<hr class="am-article-divider blog-hr">');
         }
     });
 }

@@ -119,4 +119,28 @@ public class BlogService {
         page.setAllowComment(typechoContents.getAllowcomment());
         return page;
     }
+
+    public List<BlogContent> getSearch(String wd) {
+        List<TypechoContents> typechoContentsList = typechoContentsMapper.selectLike("%" + wd + "%");
+        List<BlogContent> blogContents = new ArrayList<BlogContent>();
+        for (TypechoContents typechoContents : typechoContentsList) {
+            if (typechoContents.getType().equals("post")) {
+                BlogContent blogContent = new BlogContent();
+                int authorId = typechoContents.getAuthorid();
+                blogContent.setAuthor(typechoUsersMapper.selectByPrimaryKey(authorId).getScreenname());
+                blogContent.setAuthorId(String.valueOf(authorId));
+                blogContent.setTitle(typechoContents.getTitle());
+                blogContent.setCid(String.valueOf(typechoContents.getCid()));
+                blogContent.setContent(typechoContents.getText());
+                TypechoRelationshipsKey typechoRelationshipsKey = typechoRelationshipsMapper.selectByCid(typechoContents.getCid());
+                TypechoMetas typechoMetas = typechoMetasMapper.selectByPrimaryKey(typechoRelationshipsKey.getMid());
+                blogContent.setCategory(typechoMetas.getName());
+                blogContent.setCategorySlug(typechoMetas.getSlug());
+                blogContent.setComment(String.valueOf(typechoCommentsMapper.countByCid(typechoContents.getCid())));
+                blogContent.setDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date(typechoContents.getCreated() * 1000L)));
+                blogContents.add(blogContent);
+            }
+        }
+        return blogContents;
+    }
 }

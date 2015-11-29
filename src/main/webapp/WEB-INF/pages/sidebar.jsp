@@ -17,8 +17,6 @@
             <div class="am-panel-hd">其他</div>
             <ul class="am-list blog-list">
                 <li><a href="/admin">后台管理</a></li>
-                <li><a href="/feed/">文章 RSS</a></li>
-                <li><a href="/feed/comments/">评论 RSS</a></li>
                 <li><a href="http://typecho.org/">Typecho</a></li>
                 <li><a href="http://blog.lanyus.com/">ilanyu</a></li>
             </ul>

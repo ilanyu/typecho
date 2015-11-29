@@ -86,12 +86,12 @@
             <li id="index" class="am-active"><a href="/">首页</a></li>
         </ul>
 
-        <form class="am-topbar-form am-topbar-left am-form-inline am-topbar-right" role="search">
+        <div class="am-topbar-form am-topbar-left am-form-inline am-topbar-right" role="search">
             <div class="am-form-group">
-                <input type="text" class="am-form-field am-input-sm" placeholder="搜索文章">
+                <input type="text" class="am-form-field am-input-sm" placeholder="搜索文章" id="searchBox">
             </div>
-            <button type="submit" class="am-btn am-btn-default am-btn-sm">搜索</button>
-        </form>
+            <button type="button" class="am-btn am-btn-default am-btn-sm" onclick="search()">搜索</button>
+        </div>
 
     </div>
 </header>
