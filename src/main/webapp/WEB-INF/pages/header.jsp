@@ -12,8 +12,22 @@
     <link rel="stylesheet" href="//cdn.amazeui.org/amazeui/2.4.2/css/amazeui.css"/>
     <script src="//lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.js"></script>
     <script src="//cdn.amazeui.org/amazeui/2.4.2/js/amazeui.min.js"></script>
-    <script src="/js/marked.js"></script>
-    <script src="/js/jQuery.md5.js"></script>
+    <script src="${pageContext.request.contextPath}/js/marked.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jQuery.md5.js"></script>
+    <script>
+        function init() {
+            $.get("./init","", function (data) {
+                data = eval(data);
+                if (localStorage.version != data["version"]) {
+                    localStorage.duoshuoQuery_short_name = data["duoshuoQuery_short_name"];
+                    localStorage.contextPath = ${pageContext.request.contextPath};
+                    localStorage.blogTitle = data["blogTitle"];
+                    document.title = localStorage.blogTitle;
+                }
+            });
+        }
+        init();
+    </script>
 
     <style>
         @media only screen and (min-width: 1200px) {
@@ -73,8 +87,8 @@
 <body>
 
 <header class="am-topbar">
-    <h1 class="am-topbar-brand">
-        <a href="#">blog</a>
+    <h1 class="am-topbar-brand" id="topbar-brand">
+        blog
     </h1>
 
     <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
