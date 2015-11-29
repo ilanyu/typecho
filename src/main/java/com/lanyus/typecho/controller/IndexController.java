@@ -28,6 +28,10 @@ public class IndexController {
     @Resource
     BlogService blogService;
 
+    @RequestMapping("init")
+    public void init(PrintWriter out) {
+        out.close();
+    }
     @RequestMapping("/login/login")
     public void login(@RequestParam(value = "name", required = false) String name,
                       @RequestParam(value = "password", required = false) String password,
