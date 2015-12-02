@@ -30,6 +30,7 @@ public class IndexController {
 
     @RequestMapping("/init")
     public void init(PrintWriter out) {
+
         out.close();
     }
     @RequestMapping("/login/login")
