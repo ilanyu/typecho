@@ -179,4 +179,45 @@ public class BlogService {
         }
         return blogContents;
     }
+
+    public List<BlogContent> getCategorySlug(String slug) {
+        int mid = typechoMetasMapper.selectMidBySlug(slug);
+        List<TypechoContents> typechoContentsList = typechoContentsMapper.selectAll();
+        List<BlogContent> blogContents = new ArrayList<BlogContent>();
+        for (TypechoContents typechoContents : typechoContentsList) {
+            TypechoRelationshipsKey typechoRelationshipsKey = typechoRelationshipsMapper.selectByCid(typechoContents.getCid());
+            if (typechoContents.getType().equals("post")) {
+                if (mid == typechoRelationshipsKey.getMid()) {
+                    BlogContent blogContent = new BlogContent();
+                    int authorId = typechoContents.getAuthorid();
+                    blogContent.setAuthor(typechoUsersMapper.selectByPrimaryKey(authorId).getScreenname());
+                    blogContent.setAuthorId(String.valueOf(authorId));
+                    blogContent.setTitle(typechoContents.getTitle());
+                    blogContent.setCid(String.valueOf(typechoContents.getCid()));
+                    blogContent.setContent(typechoContents.getText());
+                    TypechoMetas typechoMetas = typechoMetasMapper.selectByPrimaryKey(typechoRelationshipsKey.getMid());
+                    blogContent.setCategory(typechoMetas.getName());
+                    blogContent.setCategorySlug(typechoMetas.getSlug());
+                    blogContent.setComment(String.valueOf(typechoCommentsMapper.countByCid(typechoContents.getCid())));
+                    blogContent.setDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date(typechoContents.getCreated() * 1000L)));
+                    blogContents.add(blogContent);
+                }
+            }
+        }
+        return blogContents;
+    }
+
+    public Init getInit() {
+        TypechoOptionsKey typechoOptionsKey = new TypechoOptionsKey();
+        typechoOptionsKey.setName("duoshuoQuery_short_name");
+        typechoOptionsKey.setUser(0);
+        TypechoOptions duoshuoQuery_short_name = typechoOptionsMapper.selectByPrimaryKey(typechoOptionsKey);
+        typechoOptionsKey.setName("title");
+        TypechoOptions title = typechoOptionsMapper.selectByPrimaryKey(typechoOptionsKey);
+        Init init = new Init();
+        init.setDuoshuoQuery_short_name(duoshuoQuery_short_name.getValue());
+        init.setBlogTitle(title.getValue());
+        init.setVersion("20151202");
+        return init;
+    }
 }

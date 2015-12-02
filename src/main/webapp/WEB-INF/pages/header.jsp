@@ -16,17 +16,18 @@
     <script src="${pageContext.request.contextPath}/js/jQuery.md5.js"></script>
     <script>
         function init() {
-            $.get("./init","", function (data) {
-                data = eval(data);
-                if (localStorage.version != data["version"]) {
-                    localStorage.duoshuoQuery_short_name = data["duoshuoQuery_short_name"];
-                    localStorage.contextPath = ${pageContext.request.contextPath};
-                    localStorage.blogTitle = data["blogTitle"];
-                    document.title = localStorage.blogTitle;
+            $.getJSON("./init","", function (data) {
+                if (localStorage.getItem("version") != data["version"]) {
+                    localStorage.setItem("duoshuoQuery_short_name", data["duoshuoQuery_short_name"]);
+                    localStorage.setItem("contextPath", "${pageContext.request.contextPath}");
+                    localStorage.setItem("blogTitle", data["blogTitle"]);
+                    document.title = localStorage.getItem("blogTitle");
                 }
             });
         }
+        $.ajaxSettings.async = false;
         init();
+        $.ajaxSettings.async = true;
     </script>
 
     <style>

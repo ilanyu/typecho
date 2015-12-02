@@ -2,6 +2,7 @@ package com.lanyus.typecho.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.lanyus.typecho.domain.BlogContent;
+import com.lanyus.typecho.domain.Init;
 import com.lanyus.typecho.service.BlogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,9 +31,22 @@ public class IndexController {
 
     @RequestMapping("/init")
     public void init(PrintWriter out) {
-
+        Init init = blogService.getInit();
+        out.print(JSON.toJSONString(init));
         out.close();
     }
+
+    @RequestMapping("/categorySlug")
+    public String categorySlug() {
+        return "categorySlug";
+    }
+
+    @RequestMapping("/getCategorySlug/{slug}")
+    public void getCategorySlug(@PathVariable("slug") String slug, PrintWriter out) {
+        out.print(JSON.toJSONString(blogService.getCategorySlug(slug)));
+        out.close();
+    }
+
     @RequestMapping("/login/login")
     public void login(@RequestParam(value = "name", required = false) String name,
                       @RequestParam(value = "password", required = false) String password,

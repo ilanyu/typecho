@@ -32,6 +32,9 @@
     from typecho_metas
     where `mid` = #{mid,jdbcType=INTEGER}
   </select>
+  <select id="selectMidBySlug" resultType="java.lang.Integer">
+    select `mid` from typecho_metas WHERE `slug` = #{slug}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     <!--
       WARNING - @mbggenerated

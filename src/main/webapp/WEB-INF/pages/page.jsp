@@ -8,12 +8,11 @@
 </div>
 <script src="${pageContext.request.contextPath}/js/function.js"></script>
 <script>
-    var duoshuoQuery = {short_name:localStorage.duoshuoQuery_short_name};
+    var duoshuoQuery = {short_name:localStorage.getItem("duoshuoQuery_short_name")};
     $(document).ready(function () {
         getPageList();
         getPage();
         getNewBlogList();
     });
 </script>
-</body>
-</html>
+<%@include file="footer.jsp"%>

@@ -18,9 +18,9 @@
     $(document).ready(function () {
         getPageList();
         getNewBlogList();
-//        $.ajaxSettings.async = false;
-        getSearch();
-//        $.ajaxSettings.async = true;
+        $.ajaxSettings.async = false;
+        getCategorySlug();
+        $.ajaxSettings.async = true;
 //        nowBlogCount += 2;
 //        $('#loadMore').show();
     });
