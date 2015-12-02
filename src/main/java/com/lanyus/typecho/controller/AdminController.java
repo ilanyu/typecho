@@ -33,10 +33,10 @@ public class AdminController {
         return "admin/profile";
     }
 
-    @RequestMapping("/admin/users-profile")
-    public void usersProfile(@RequestParam("screenName") String screenName,
-                             @RequestParam("url") String url,
-                             @RequestParam("mail") String mail,
+    @RequestMapping("/users-profile")
+    public void usersProfile(@RequestParam(value = "screenName", required = false) String screenName,
+                             @RequestParam(value = "url", required = false) String url,
+                             @RequestParam(value = "mail", required = false) String mail,
                              PrintWriter out) {
         Map<String, String> map = new HashMap<>();
         map.put("status","success");

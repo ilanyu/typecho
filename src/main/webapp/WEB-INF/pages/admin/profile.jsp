@@ -26,7 +26,7 @@
                             <input id="mail-0-3" type="email" name="mail" placeholder="${mail}">
                         </div>
                         <div class="am-form-group">
-                            <button class="am-btn am-btn-block am-btn-default">更新我的档案</button>
+                            <button class="am-btn am-btn-block am-btn-default" onclick="usersProfile()">更新我的档案</button>
                         </div>
                     </div>
                 </div>
