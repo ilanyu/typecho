@@ -5,11 +5,12 @@
 
     <div class="am-cf am-padding">
         <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">后台管理</strong> /
-            <small>网站概要</small>
+            <small>个人设置</small>
         </div>
     </div>
     <div class="am-g">
         <div class="am-u-sm-12">
+            <h2 class="am-header">个人资料</h2>
             <div class="am-container">
                 <div class="am-g am-u-sm-centered">
                     <div class="am-form">
@@ -31,7 +32,26 @@
                     </div>
                 </div>
             </div>
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+            <h2 class="am-header">密码修改</h2>
+
+            <div class="am-container">
+                <div class="am-g am-u-sm-centered">
+                    <div class="am-form">
+                        <div class="am-form-group">
+                            <label for="password-0-4" class="am-form-label">用户密码</label>
+                            <input id="password-0-4" type="password" name="password"/>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="confirm-0-5" class="am-form-label">用户密码确认</label>
+                            <input id="confirm-0-5" type="password" name="confirm"/>
+                        </div>
+                        <div class="am-form-group">
+                            <button class="am-btn am-btn-block am-btn-default" onclick="usersPassword()">更新密码</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

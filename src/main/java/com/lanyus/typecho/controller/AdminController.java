@@ -37,6 +37,7 @@ public class AdminController {
     public void usersProfile(@RequestParam(value = "screenName", required = false) String screenName,
                              @RequestParam(value = "url", required = false) String url,
                              @RequestParam(value = "mail", required = false) String mail,
+                             @RequestParam(value = "password", required = false) String password,
                              PrintWriter out) {
         Map<String, String> map = new HashMap<>();
         map.put("status","success");
