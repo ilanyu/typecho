@@ -10,7 +10,8 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="stylesheet" href="//cdn.amazeui.org/amazeui/2.4.2/css/amazeui.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/amazeui.css"/>
+    <link rel="stylesheet" href="//cdn.amazeui.org/amazeui/2.5.0/css/amazeui.min.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
 </head>
 <body>

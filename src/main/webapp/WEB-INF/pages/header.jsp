@@ -9,9 +9,9 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <link rel="stylesheet" href="//cdn.amazeui.org/amazeui/2.4.2/css/amazeui.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/amazeui.css"/>
     <script src="//lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.js"></script>
-    <script src="//cdn.amazeui.org/amazeui/2.4.2/js/amazeui.min.js"></script>
+    <script src="//cdn.amazeui.org/amazeui/2.5.0/js/amazeui.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/marked.js"></script>
     <script src="${pageContext.request.contextPath}/js/jQuery.md5.js"></script>
     <script>
