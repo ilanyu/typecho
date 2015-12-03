@@ -50,7 +50,7 @@
                 <li><a href="${pageContext.request.contextPath}/"><span class="am-icon-home"></span> 首页</a></li>
                 <li class="admin-parent">
                     <a class="am-cf" data-am-collapse="{target: '#admin'}"><span class="am-icon-tachometer"></span> 控制台 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="admin">
+                    <ul class="am-list am-collapse admin-sidebar-sub" id="admin">
                         <li><a href="${pageContext.request.contextPath}/admin/" class="am-cf"><span class="am-icon-tachometer"></span> 概要</a></li>
                         <li><a href="${pageContext.request.contextPath}/admin/profile"><span class="am-icon-wrench"></span> 个人设置</a></li>
                     </ul>

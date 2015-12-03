@@ -40,8 +40,43 @@ public class AdminController {
                              @RequestParam(value = "password", required = false) String password,
                              PrintWriter out) {
         Map<String, String> map = new HashMap<>();
-        map.put("status","success");
+        map.put("status", "success");
+        if (screenName != null) {
+            map.put("screenName", screenName);
+        }
+        if (url != null) {
+            map.put("url", url);
+        }
+        if (mail != null) {
+            map.put("mail", mail);
+        }
+        if (password != null) {
+            map.put("password", password);
+        }
         out.print(JSON.toJSONString(map));
         out.close();
     }
+
+    @RequestMapping("/options-discussion")
+    public String optionsDiscussion(ModelMap model) {
+        model.addAttribute("short_name", "idealanyus");
+        return "admin/optionsDiscussion";
+    }
+
+    @RequestMapping("/setOptionsDiscussion")
+    public void setOptionsDiscussion(@RequestParam("short_name") String short_name, PrintWriter out) {
+        Map<String, String> map = new HashMap<>();
+        map.put("status", "success");
+        if (short_name != null) {
+            map.put("short_name", short_name);
+        }
+        out.print(JSON.toJSONString(map));
+        out.close();
+    }
+
+    @RequestMapping("/options-general")
+    public String optionsGeneral() {
+        return "admin/optionsGeneral";
+    }
+
 }

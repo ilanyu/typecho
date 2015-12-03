@@ -6,7 +6,7 @@ function usersProfile() {
 	var url = $('#url-0-2').val();
 	var mail = $('#mail-0-3').val();
 	$.getJSON("./users-profile", {"screenName": screenName, "url": url, "mail": mail}, function (data) {
-		if (data["status"] = "OK") {
+		if (data["status"] == "success" && data["screenName"] == screenName && data["url"] == url && data["mail"] == mail) {
 			$('#updateSuccess').modal();
 		} else {
 			$('#updateFailed').modal();
@@ -22,7 +22,18 @@ function usersPassword() {
 		return;
 	}
 	$.getJSON("./users-profile", {"password": password}, function (data) {
-		if (data["status"] = "OK") {
+		if (data["status"] == "success" && data["password"] == password) {
+			$('#updateSuccess').modal();
+		} else {
+			$('#updateFailed').modal();
+		}
+	});
+}
+
+function optionsDiscussion() {
+	var short_name = $("#short_name").val();
+	$.getJSON("./setOptionsDiscussion", {"short_name": short_name}, function (data) {
+		if (data["status"] == "success" && data["short_name"] == short_name) {
 			$('#updateSuccess').modal();
 		} else {
 			$('#updateFailed').modal();
